@@ -25,6 +25,7 @@ public class Form_Table extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tb = new javax.swing.JTable();
         btn_close = new javax.swing.JButton();
@@ -391,6 +392,7 @@ private TableRowSorter<DefaultTableModel> rowSorter;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField search_name;
     private javax.swing.JTable tb;
     private javax.swing.JTextField txt_gender;

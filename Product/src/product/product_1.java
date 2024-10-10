@@ -706,10 +706,8 @@ public void ShowItem(int index) {
     lbl_image.setIcon(ResizeImage(null,imageData));   
 }      
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new product_1().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new product_1().setVisible(true);
         });
     }
 

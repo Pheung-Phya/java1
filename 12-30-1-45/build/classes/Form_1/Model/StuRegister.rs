@@ -1,0 +1,11 @@
+gui.StuRegister$8
+gui.StuRegister$9
+gui.StuRegister$10
+gui.StuRegister$1
+gui.StuRegister$2
+gui.StuRegister$3
+gui.StuRegister$4
+gui.StuRegister
+gui.StuRegister$5
+gui.StuRegister$6
+gui.StuRegister$7
