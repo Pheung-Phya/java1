@@ -1,2 +1,0 @@
-gui.bt
-gui.btn

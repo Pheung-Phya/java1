@@ -1,23 +1,33 @@
 
 package Form_1;
-
 import java.awt.Image;
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class Etecregister extends javax.swing.JFrame {
     String path;
     public Etecregister() {
         initComponents();
         this.setLocationRelativeTo(null);
+        ttdate.setDate(new Date());
+        table.getTableHeader().setReorderingAllowed(false);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -43,7 +53,7 @@ public class Etecregister extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        search_name = new javax.swing.JTextField();
         ttcourse = new javax.swing.JComboBox<>();
         tttime = new javax.swing.JComboBox<>();
         ttplace = new javax.swing.JComboBox<>();
@@ -58,11 +68,10 @@ public class Etecregister extends javax.swing.JFrame {
         btnupdate = new javax.swing.JButton();
         btnclear = new javax.swing.JButton();
         btndelete = new javax.swing.JButton();
-        btnphoto = new javax.swing.JButton();
         btnexit = new javax.swing.JButton();
         ttprice = new javax.swing.JTextField();
-        ttdate = new com.toedter.calendar.JDateChooser();
         image = new javax.swing.JLabel();
+        ttdate = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Register");
@@ -142,10 +151,15 @@ public class Etecregister extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("ស្វែងរក");
 
-        jTextField12.setBackground(new java.awt.Color(0, 102, 102));
-        jTextField12.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField12.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField12.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        search_name.setBackground(new java.awt.Color(0, 102, 102));
+        search_name.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        search_name.setForeground(new java.awt.Color(255, 255, 255));
+        search_name.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        search_name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                search_nameActionPerformed(evt);
+            }
+        });
 
         ttcourse.setBackground(new java.awt.Color(0, 102, 102));
         ttcourse.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -212,6 +226,11 @@ public class Etecregister extends javax.swing.JFrame {
                 "លេខរៀង", "ឈ្មោះ", "ភេទ", "ថ្ងៃខែចូលរៀន", "វគ្គសិក្សា", "ម៉ោងសិក្សា", "តម្លៃសិក្សា", "ថ្ងៃសិក្សា", "លេខទូរស័ព្ទ", "រូបភាព", "កន្លែងសិក្សា"
             }
         ));
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(table);
 
         btnsave.setBackground(new java.awt.Color(153, 153, 153));
@@ -228,21 +247,31 @@ public class Etecregister extends javax.swing.JFrame {
         btnupdate.setFont(new java.awt.Font("Kh Battambang", 0, 14)); // NOI18N
         btnupdate.setForeground(new java.awt.Color(255, 255, 255));
         btnupdate.setText("កែតម្រូវ");
+        btnupdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnupdateActionPerformed(evt);
+            }
+        });
 
         btnclear.setBackground(new java.awt.Color(0, 204, 204));
         btnclear.setFont(new java.awt.Font("Kh Battambang", 0, 14)); // NOI18N
         btnclear.setForeground(new java.awt.Color(255, 255, 255));
         btnclear.setText("សម្អាត");
+        btnclear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnclearActionPerformed(evt);
+            }
+        });
 
         btndelete.setBackground(new java.awt.Color(204, 0, 0));
         btndelete.setFont(new java.awt.Font("Kh Battambang", 0, 14)); // NOI18N
         btndelete.setForeground(new java.awt.Color(255, 255, 255));
         btndelete.setText("លុប");
-
-        btnphoto.setBackground(new java.awt.Color(102, 102, 255));
-        btnphoto.setFont(new java.awt.Font("Kh Battambang", 0, 14)); // NOI18N
-        btnphoto.setForeground(new java.awt.Color(255, 255, 255));
-        btnphoto.setText("រូបភាព");
+        btndelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btndeleteActionPerformed(evt);
+            }
+        });
 
         btnexit.setFont(new java.awt.Font("Kh Battambang", 0, 14)); // NOI18N
         btnexit.setText("ចាកចេញ");
@@ -256,10 +285,6 @@ public class Etecregister extends javax.swing.JFrame {
         ttprice.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ttprice.setForeground(new java.awt.Color(255, 255, 255));
         ttprice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-
-        ttdate.setBackground(new java.awt.Color(0, 102, 102));
-        ttdate.setForeground(java.awt.Color.white);
-        ttdate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         image.setBackground(new java.awt.Color(51, 204, 255));
         image.setOpaque(true);
@@ -292,7 +317,8 @@ public class Etecregister extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ttdate, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(ttdate, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(9, 9, 9)))
                         .addGap(101, 101, 101)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -323,7 +349,7 @@ public class Etecregister extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(ttplace, 0, 164, Short.MAX_VALUE)
-                                    .addComponent(jTextField12)))
+                                    .addComponent(search_name)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
@@ -346,13 +372,11 @@ public class Etecregister extends javax.swing.JFrame {
                         .addComponent(btnsave, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                         .addGap(115, 115, 115)
                         .addComponent(btnupdate, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
-                        .addGap(50, 50, 50)
+                        .addGap(122, 122, 122)
                         .addComponent(btnclear, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                        .addGap(59, 59, 59)
+                        .addGap(121, 121, 121)
                         .addComponent(btndelete, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                        .addGap(79, 79, 79)
-                        .addComponent(btnphoto, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                        .addGap(70, 70, 70)
+                        .addGap(103, 103, 103)
                         .addComponent(btnexit, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
                         .addGap(122, 122, 122))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -402,7 +426,7 @@ public class Etecregister extends javax.swing.JFrame {
                                         .addComponent(ttphone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(37, 37, 37)
                                 .addComponent(gf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(32, 32, 32)
+                                .addGap(28, 28, 28)
                                 .addComponent(ttdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(125, 125, 125)
@@ -435,7 +459,7 @@ public class Etecregister extends javax.swing.JFrame {
                         .addGap(34, 34, 34))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(55, 256, Short.MAX_VALUE)
-                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(search_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
@@ -444,7 +468,6 @@ public class Etecregister extends javax.swing.JFrame {
                     .addComponent(btnupdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnclear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btndelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnphoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnexit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(42, 42, 42))
         );
@@ -479,19 +502,21 @@ public class Etecregister extends javax.swing.JFrame {
 
     private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
         DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0);
         int id = Integer.parseInt(ttid.getText());
          String name = ttname.getText();
          String gender = gm.isSelected()?"Male":"Female";
-         String date = ttdate.getDate().toString();
+         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String date = dateFormat.format(ttdate.getDate());
          String course = (String) ttcourse.getSelectedItem();
          String time = (String) tttime.getSelectedItem();
          double price = Double.parseDouble( ttprice.getText());
          String day = btn_ss.isSelected()?"Sat-Son":"Mon-Thur";
          String phone = ttphone.getText();
          String phtot = path;
-         System.out.println(path);
          
          ModelStudent.list.add(new ModelStudent(id, name, gender, time, phone, course, day, phone, phtot, date, price));
+         Collections.sort(ModelStudent.list, Comparator.comparing(ModelStudent::getId));
          for(int i=0;i<ModelStudent.list.size();i++){
                  Object[] row={
                           ModelStudent.list.get(i).getId(),
@@ -509,16 +534,16 @@ public class Etecregister extends javax.swing.JFrame {
                  }    ; 
                  model.addRow(row);
         }
-         
+         ClearText();
     }//GEN-LAST:event_btnsaveActionPerformed
 
     private void btnaddphotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddphotoActionPerformed
  JFileChooser file = new JFileChooser();
     file.setCurrentDirectory(new File(System.getProperty("user.home")));
-    int result = file.showOpenDialog(null);  // Changed to showOpenDialog
+    int result = file.showSaveDialog(null);  // Changed to showOpenDialog
     if(result == JFileChooser.APPROVE_OPTION) {
         File selectedFile = file.getSelectedFile();
-        String path = selectedFile.getAbsolutePath();
+         path = selectedFile.getAbsolutePath();
         ImageIcon img = new ImageIcon(path);
         Image img1 = img.getImage();
         Image scaleImage = img1.getScaledInstance(image.getWidth(), image.getHeight(), Image.SCALE_SMOOTH);
@@ -529,6 +554,122 @@ public class Etecregister extends javax.swing.JFrame {
     // Nimbus Look and Feel should be set at the beginning of the program, if needed
     
     }//GEN-LAST:event_btnaddphotoActionPerformed
+
+    private void btnclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclearActionPerformed
+        ClearText();
+    }//GEN-LAST:event_btnclearActionPerformed
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+         int row= table.getSelectedRow();
+         if(row !=-1){
+            try {
+                ttid.setText(model.getValueAt(row, 0).toString());
+                ttname.setText(model.getValueAt(row, 1).toString());
+                boolean gender= model.getValueAt(row, 2).toString().equals("Male")?true:false;
+                 if(gender){
+                           gm.setSelected(true);
+                 }else{
+                           gf.setSelected(true);
+                 }
+                String date = model.getValueAt(row, 3).toString();
+                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+                Date d = sdf.parse(date);
+                ttdate.setDate(d);
+                 ttcourse.setSelectedItem(model.getValueAt(row, 4).toString());
+                 tttime.setSelectedItem(model.getValueAt(row, 5).toString());
+                 ttprice.setText(model.getValueAt(row, 6).toString());
+                 boolean day = model.getValueAt(row, 7).toString().equals("Sat-Son")?true:false;
+                 if(day){
+                          btn_ss.setSelected(true);
+                 }else{
+                          btn_mt.setSelected(true);
+                 }
+                 ttphone.setText(model.getValueAt(row, 8).toString());
+                 String picture = model.getValueAt(row, 9).toString();
+                  ImageIcon img = new ImageIcon(picture);
+                    Image img1 = img.getImage();
+                    Image scaleImage = img1.getScaledInstance(image.getWidth(), image.getHeight(), Image.SCALE_SMOOTH);
+                    image.setIcon(new ImageIcon(scaleImage)); 
+                 ttplace.setSelectedItem(model.getValueAt(row, 10).toString());
+            } catch (ParseException ex) {
+                Logger.getLogger(Etecregister.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         }
+    }//GEN-LAST:event_tableMouseClicked
+
+    private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
+        int index = table.getSelectedRow();
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        if(index!=-1){
+                 ModelStudent.list.remove(index);
+                 System.out.println(ModelStudent.list.size());
+                 model.removeRow(index);
+                 ClearText();
+        }
+        
+    }//GEN-LAST:event_btndeleteActionPerformed
+
+    private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        int index = table.getSelectedRow();
+        if(index!=-1){
+                 int id = Integer.parseInt(ttid.getText());
+                String name = ttname.getText();
+                String gender = gm.isSelected()?"Male":"Female";
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+               String date = dateFormat.format(ttdate.getDate());
+                String course = (String) ttcourse.getSelectedItem();
+                String time = (String) tttime.getSelectedItem();
+                double price = Double.parseDouble( ttprice.getText());
+                String day = btn_ss.isSelected()?"Sat-Son":"Mon-Thur";
+                String phone = ttphone.getText();
+                String phtot = path;
+                ModelStudent.list.set(index,new ModelStudent(id, name, gender, time, phone, course, day, phone, phtot, date, price) );
+                  model.setValueAt(ModelStudent.list.get(index).getId(), index, 0);
+        model.setValueAt(ModelStudent.list.get(index).getName(), index, 1);
+        model.setValueAt(ModelStudent.list.get(index).getGender(), index, 2);
+        model.setValueAt(ModelStudent.list.get(index).getDate(), index, 3);
+        model.setValueAt(ModelStudent.list.get(index).getCours(), index, 4);
+        model.setValueAt(ModelStudent.list.get(index).getTime(), index, 5);
+        model.setValueAt(ModelStudent.list.get(index).getPrice(), index, 6);
+        model.setValueAt(ModelStudent.list.get(index).getDay(), index, 7);
+        model.setValueAt(ModelStudent.list.get(index).getPhone(), index, 8);
+        model.setValueAt(ModelStudent.list.get(index).getPhoto(), index, 9);
+                ClearText();
+                
+        }
+    }//GEN-LAST:event_btnupdateActionPerformed
+
+    private void search_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_nameActionPerformed
+         TableRowSorter<DefaultTableModel> rowSorter;
+         DefaultTableModel model = (DefaultTableModel) table.getModel();
+        rowSorter = new TableRowSorter<>(model);
+        table.setRowSorter(rowSorter);       
+        search_name.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filterByName();
+            }
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filterByName();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filterByName();
+            }
+            private void filterByName() {
+                String searchText = search_name.getText();
+                if (searchText.trim().length() == 0) {
+                    rowSorter.setRowFilter(null); // No filter if the text field is empty
+                } else {
+                    rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + searchText, 1)); // Case-insensitive filter on column 1 (Name)
+                }
+            }
+        });
+    }//GEN-LAST:event_search_nameActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -566,6 +707,16 @@ public class Etecregister extends javax.swing.JFrame {
             }
         });
     }
+    private void ClearText(){
+         ttid.setText("");
+         ttname.setText("");
+         ttphone.setText("");
+         ttprice.setText("");
+         ttphone.setText("");
+         image.setText("");      
+         Date currentDate = new Date();  
+        ttdate.setDate(currentDate);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox btn_mt;
@@ -574,7 +725,6 @@ public class Etecregister extends javax.swing.JFrame {
     private javax.swing.JButton btnclear;
     private javax.swing.JButton btndelete;
     private javax.swing.JButton btnexit;
-    private javax.swing.JButton btnphoto;
     private javax.swing.JButton btnsave;
     private javax.swing.JButton btnupdate;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -598,7 +748,7 @@ public class Etecregister extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField12;
+    private javax.swing.JTextField search_name;
     private javax.swing.JTable table;
     private javax.swing.JComboBox<String> ttcourse;
     private com.toedter.calendar.JDateChooser ttdate;

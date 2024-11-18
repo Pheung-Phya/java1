@@ -1,2 +1,0 @@
-GUI.GradientButton
-GUI.GradientButtonDemo

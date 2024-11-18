@@ -1,1 +1,0 @@
-gui.List_stuinfor

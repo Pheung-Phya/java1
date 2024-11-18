@@ -86,13 +86,14 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="btn_Choose_Image" max="32767" attributes="0"/>
-                                          <Component id="lbl_image" min="-2" pref="241" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="txt_Add_Date" min="-2" pref="383" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="btn_Choose_Image" max="32767" attributes="0"/>
+                                      <Component id="lbl_image" min="-2" pref="241" max="-2" attributes="0"/>
                                   </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                                  <Component id="txt_Add_Date" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -136,9 +137,9 @@
                               <Component id="txt_Price" alignment="3" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
                               <Component id="jLabel5" min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="txt_Add_Date" min="-2" pref="30" max="-2" attributes="0"/>
+                              <Component id="txt_Add_Date" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -257,17 +258,6 @@
               <Font name="Segoe UI" size="18" style="1"/>
             </Property>
           </Properties>
-        </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="txt_Add_Date">
-          <Properties>
-            <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="18" style="1"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="ancestorAdded" listener="javax.swing.event.AncestorListener" parameters="javax.swing.event.AncestorEvent" handler="txt_Add_DateAncestorAdded"/>
-          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel4">
           <Properties>
@@ -501,6 +491,8 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_PreviousActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="txt_Add_Date">
         </Component>
       </SubComponents>
     </Container>

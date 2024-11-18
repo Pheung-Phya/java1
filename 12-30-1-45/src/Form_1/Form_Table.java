@@ -342,16 +342,14 @@ txt_salary.addKeyListener(new java.awt.event.KeyAdapter() {
     }//GEN-LAST:event_tbMouseClicked
 private TableRowSorter<DefaultTableModel> rowSorter;
     private void search_nameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_search_nameActionPerformed
-              DefaultTableModel model = (DefaultTableModel) tb.getModel();
+         DefaultTableModel model = (DefaultTableModel) tb.getModel();
         rowSorter = new TableRowSorter<>(model);
-        tb.setRowSorter(rowSorter); // Attach the sorter to the JTable
-        // Assuming your search field is called txt_searchName
+        tb.setRowSorter(rowSorter);       
         search_name.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 filterByName();
             }
-
             @Override
             public void removeUpdate(DocumentEvent e) {
                 filterByName();
